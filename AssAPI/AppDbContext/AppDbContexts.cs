@@ -7,7 +7,7 @@ namespace AssAPI.AppDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-7HORMRAF\\SQLEXPRESS01;Initial Catalog=AppAss;Trusted_Connection=True;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Data Source=HHUNGDZ\\SQLEXPRESS;Initial Catalog=AppAssmt;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         }
         public AppDbContexts()
         {
