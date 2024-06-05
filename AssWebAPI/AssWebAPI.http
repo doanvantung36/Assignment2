@@ -1,0 +1,6 @@
+@AssWebAPI_HostAddress = http://localhost:5007
+
+GET {{AssWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
