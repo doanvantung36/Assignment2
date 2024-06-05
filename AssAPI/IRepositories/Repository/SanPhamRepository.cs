@@ -1,10 +1,17 @@
-﻿using AssAPI.IRepositories.IRepository;
+﻿using AssAPI.AppDbContext;
+using AssAPI.IRepositories.IRepository;
 using AssAPI.Model;
 
 namespace AssAPI.IRepositories.Repository
 {
     public class SanPhamRepository : ISanPhamRepository
     {
+        private readonly AppDbContexts _context;
+
+        public SanPhamRepository()
+        {
+             _context = new AppDbContexts();
+        }
         public SanPham AddSanPham(SanPham SanPham)
         {
             throw new NotImplementedException();
