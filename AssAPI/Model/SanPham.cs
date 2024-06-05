@@ -6,6 +6,7 @@ namespace AssAPI.Model
     {
         [Key]
         public int MaSanPham {  get; set; }
+        public string HinhAnh { get; set; }
         public string TenSanPham {  set; get; }
         public double Gia {  get; set; }
         public string NhaSanXuat { get; set; }

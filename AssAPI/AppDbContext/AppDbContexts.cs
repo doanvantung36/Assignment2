@@ -3,17 +3,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AssAPI.AppDbContext
 {
-    public class AppDbContext : DbContext
+    public class AppDbContexts : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=LAPTOP-7HORMRAF\\SQLEXPRESS01;Initial Catalog=AppAss;Trusted_Connection=True;Integrated Security=True;TrustServerCertificate=True");
         }
-        public AppDbContext()
+        public AppDbContexts()
         {
 
         }
-        public AppDbContext(DbContextOptions options) : base(options)
+        public AppDbContexts(DbContextOptions options) : base(options)
         {
         }
 
@@ -24,5 +24,22 @@ namespace AssAPI.AppDbContext
         public DbSet<NhanVien> NhanVien { get; set; }
         public DbSet<Role> Role { get; set; }
         public DbSet<SanPham> SanPham { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<HoaDonChiTiet>()
+                .HasKey(h => new { h.MaHoaDon, h.MaSanPham });
+
+            modelBuilder.Entity<HoaDonChiTiet>()
+                .HasOne(h => h.HoaDon)
+                .WithMany(hd => hd.HoaDonChiTiet)
+                .HasForeignKey(h => h.MaHoaDon);
+
+            modelBuilder.Entity<HoaDonChiTiet>()
+                .HasOne(h => h.SanPham)
+                .WithMany(sp => sp.HoaDonChiTiet)
+                .HasForeignKey(h => h.MaSanPham);
+        }
     }
 }

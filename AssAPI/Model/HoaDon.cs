@@ -18,6 +18,6 @@ namespace AssAPI.Model
 
         public KhachHang KhachHang { get; set; }
         public NhanVien NhanVien { get; set; }
-        public ICollection<HoaDonChiTiet> HoaDonChiTiets { get; set; }
+        public ICollection<HoaDonChiTiet> HoaDonChiTiet { get; set; }
     }
 }
