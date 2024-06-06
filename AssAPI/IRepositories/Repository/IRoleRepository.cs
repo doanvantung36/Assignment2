@@ -1,33 +1,103 @@
-﻿using AssAPI.IRepositories.IRepository;
+﻿using AssAPI.AppDbContext;
+using AssAPI.IRepositories.IRepository;
 using AssAPI.Model;
 
 namespace AssAPI.IRepositories.Repository
 {
     public class RoleRepository : IRoleRepository
     {
+        private readonly AppDbContexts _context;
+
+        public RoleRepository()
+        {
+            _context = new AppDbContexts();
+        }
+
+
         public Role AddRole(Role Role)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Role.Add(Role);
+                _context.SaveChanges();
+                return Role;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void DeleteRole(int id)
         {
-            throw new NotImplementedException();
+            var findIdDelete = _context.Role.FirstOrDefault(l => l.IdRole == id);
+            try
+            {
+                _context.Role.Remove(findIdDelete);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public IEnumerable<Role> GetAllRoles()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.Role.ToList();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public Role GetByID(int id)
         {
-            throw new NotImplementedException();
+            var findId = _context.Role.FirstOrDefault(s => s.IdRole == id);
+            try
+            {
+                if (findId != null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return findId;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Role UpdateRole(Role Role)
         {
-            throw new NotImplementedException();
+            var findIdUpdate = _context.Role.FirstOrDefault(l => l.IdRole == Role.IdRole);
+            try
+            {
+                if (findIdUpdate == null)
+                {
+                    return null;
+                }
+                else
+                {
+                   _context.Role.Update(Role);
+                    _context.SaveChanges();
+                    return findIdUpdate;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

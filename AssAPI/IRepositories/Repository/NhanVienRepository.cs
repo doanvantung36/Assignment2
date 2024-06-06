@@ -1,33 +1,103 @@
-﻿using AssAPI.IRepositories.IRepository;
+﻿using AssAPI.AppDbContext;
+using AssAPI.IRepositories.IRepository;
 using AssAPI.Model;
 
 namespace AssAPI.IRepositories.Repository
 {
     public class NhanVienRepository : INhanVienRepository
     {
+        private readonly AppDbContexts _context;
+
+        public NhanVienRepository()
+        {
+            _context = new AppDbContexts();
+        }
         public NhanVien AddNhanVien(NhanVien NhanVien)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.NhanVien.Add(NhanVien);
+                _context.SaveChanges();
+                return NhanVien;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void DeleteNhanVien(int id)
         {
-            throw new NotImplementedException();
+            var findIdDelete = _context.NhanVien.FirstOrDefault(l => l.MaNhanVien == id);
+            try
+            {
+                _context.NhanVien.Remove(findIdDelete);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public IEnumerable<NhanVien> GetAllNhanViens()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.NhanVien.ToList();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public NhanVien GetByID(int id)
         {
-            throw new NotImplementedException();
+            var findId = _context.NhanVien.FirstOrDefault(s => s.MaNhanVien == id);
+            try
+            {
+                if (findId == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return findId;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public NhanVien UpdateNhanVien(NhanVien NhanVien)
         {
-            throw new NotImplementedException();
+            var findIdUpdate = _context.NhanVien.FirstOrDefault(l => l.MaNhanVien == NhanVien.MaNhanVien);
+            try
+            {
+                if (findIdUpdate == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    _context.NhanVien.Update(NhanVien);
+                    _context.SaveChanges();
+                    return findIdUpdate;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

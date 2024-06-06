@@ -14,27 +14,90 @@ namespace AssAPI.IRepositories.Repository
         }
         public SanPham AddSanPham(SanPham SanPham)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.SanPham.Add(SanPham);
+                _context.SaveChanges();
+                return SanPham;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public void DeleteSanPham(int id)
         {
-            throw new NotImplementedException();
+            var findIdDelete = _context.SanPham.FirstOrDefault(l => l.MaSanPham == id);
+            try
+            {
+                _context.SanPham.Remove(findIdDelete);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public IEnumerable<SanPham> GetAllSanPhams()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return _context.SanPham.ToList();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public SanPham GetByID(int id)
         {
-            throw new NotImplementedException();
+            var findId = _context.SanPham.FirstOrDefault(s => s.MaSanPham == id);
+            try
+            {
+                
+                if (findId != null)
+                {
+                    return null;
+                }
+                return findId;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public SanPham UpdateSanPham(SanPham SanPham)
         {
-            throw new NotImplementedException();
+
+            var findIdUpdate = _context.SanPham.FirstOrDefault(l => l.MaSanPham  == SanPham.MaSanPham);
+            try
+            {
+                if (findIdUpdate == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    _context.SanPham.Update(SanPham);
+                    _context.SaveChanges();
+                    return findIdUpdate;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

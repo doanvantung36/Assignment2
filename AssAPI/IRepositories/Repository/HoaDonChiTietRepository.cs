@@ -27,27 +27,74 @@ namespace AssAPI.IRepositories.Repository
 
         public void DeleteHoaDonChiTiet(int id)
         {
-            throw new NotImplementedException();
+            var findIdDelete = _context.HoaDonChiTiets.FirstOrDefault(l => l.MaHoaDon == id);
+            try
+            {
+                _context.HoaDonChiTiets.Remove(findIdDelete);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public IEnumerable<HoaDonChiTiet> GetAllHoaDonChiTiets()
         {
-            return _context.HoaDonChiTiets.ToList();
+            try
+            {
+                return _context.HoaDonChiTiets.ToList();
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public HoaDonChiTiet GetByID(int id)
         {
             var findId = _context.HoaDonChiTiets.FirstOrDefault(s=>s.MaHoaDon ==  id);
-            if(findId != null)
+            try
             {
-                return null;
+                if (findId == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return findId;
+                }
             }
-            return findId;
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public HoaDonChiTiet UpdateHoaDonChiTiet(HoaDonChiTiet HoaDonChiTiet)
         {
-            throw new NotImplementedException();
+            var findIdUpdate = _context.HoaDonChiTiets.FirstOrDefault(l => l.MaHoaDon == HoaDonChiTiet.MaHoaDon);
+            try
+            {
+                if (findIdUpdate == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    _context.HoaDonChiTiets.Update(HoaDonChiTiet);
+                    _context.SaveChanges();
+                    return findIdUpdate;
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }
