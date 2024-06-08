@@ -10,9 +10,9 @@ namespace AssAPI.Model
         public int MaHoaDon {  get; set; }
         public DateTime NgayXuat { get; set; }
         [ForeignKey("IdKhachHang")]
-        public string IdKhachHang { get; set; }
+        public int IdKhachHang { get; set; }
         [ForeignKey("MaNhanVien")]
-        public string MaNhanVien {  get; set; }
+        public int MaNhanVien {  get; set; }
         public string TrangThai {  get; set; }
         public double TongThanhToan {  get; set; }
 

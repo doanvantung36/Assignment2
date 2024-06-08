@@ -4,6 +4,7 @@ using AssAPI.AppDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AssAPI.Migrations
 {
     [DbContext(typeof(AppDbContexts))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240607001244_tesst3")]
+    partial class tesst3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,11 +36,17 @@ namespace AssAPI.Migrations
                     b.Property<int>("IdKhachHang")
                         .HasColumnType("int");
 
+                    b.Property<int>("KhachHangIdKhachHang")
+                        .HasColumnType("int");
+
                     b.Property<int>("MaNhanVien")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("NgayXuat")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("NhanVienMaNhanVien")
+                        .HasColumnType("int");
 
                     b.Property<double>("TongThanhToan")
                         .HasColumnType("float");
@@ -48,9 +57,9 @@ namespace AssAPI.Migrations
 
                     b.HasKey("MaHoaDon");
 
-                    b.HasIndex("IdKhachHang");
+                    b.HasIndex("KhachHangIdKhachHang");
 
-                    b.HasIndex("MaNhanVien");
+                    b.HasIndex("NhanVienMaNhanVien");
 
                     b.ToTable("HoaDons");
                 });
@@ -196,13 +205,16 @@ namespace AssAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoleIdRole")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdRole");
+                    b.HasIndex("RoleIdRole");
 
                     b.ToTable("Users");
                 });
@@ -211,13 +223,13 @@ namespace AssAPI.Migrations
                 {
                     b.HasOne("AssAPI.Model.KhachHang", "KhachHang")
                         .WithMany("HoaDons")
-                        .HasForeignKey("IdKhachHang")
+                        .HasForeignKey("KhachHangIdKhachHang")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AssAPI.Model.NhanVien", "NhanVien")
                         .WithMany("HoaDon")
-                        .HasForeignKey("MaNhanVien")
+                        .HasForeignKey("NhanVienMaNhanVien")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -249,7 +261,7 @@ namespace AssAPI.Migrations
                 {
                     b.HasOne("AssAPI.Model.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("IdRole")
+                        .HasForeignKey("RoleIdRole")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

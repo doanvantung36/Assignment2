@@ -7,7 +7,7 @@ namespace AssAPI.AppDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=HHUNGDZ\\SQLEXPRESS;Initial Catalog=AppAssmt;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-7HORMRAF\\SQLEXPRESS01;Initial Catalog=AppAss;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         }
         public AppDbContexts()
         {
@@ -18,8 +18,8 @@ namespace AssAPI.AppDbContext
         }
 
         public DbSet<HoaDon> HoaDons { get; set; }
-        public DbSet<User> Users { get; set;}
-        public DbSet<HoaDonChiTiet> HoaDonChiTiets { get; set;}
+        public DbSet<User> Users { get; set; }
+        public DbSet<HoaDonChiTiet> HoaDonChiTiets { get; set; }
         public DbSet<KhachHang> KhachHang { get; set; }
         public DbSet<NhanVien> NhanVien { get; set; }
         public DbSet<Role> Role { get; set; }
@@ -40,6 +40,21 @@ namespace AssAPI.AppDbContext
                 .HasOne(h => h.SanPham)
                 .WithMany(sp => sp.HoaDonChiTiet)
                 .HasForeignKey(h => h.MaSanPham);
+
+            modelBuilder.Entity<User>()
+                .HasOne(h => h.Role)
+                .WithMany(sp => sp.Users)
+                .HasForeignKey(h => h.IdRole);
+
+            modelBuilder.Entity<HoaDon>()
+               .HasOne(h => h.KhachHang)
+               .WithMany(sp => sp.HoaDons)
+               .HasForeignKey(h => h.IdKhachHang);
+
+            modelBuilder.Entity<HoaDon>()
+               .HasOne(h => h.NhanVien)
+               .WithMany(sp => sp.HoaDon)
+               .HasForeignKey(h => h.MaNhanVien);
         }
     }
 }

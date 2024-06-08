@@ -11,6 +11,6 @@ namespace AssAPI.Model
         public string Password { get; set; }
         [ForeignKey("IdRole")]
         public int IdRole { get; set; }
-        public Role Role { get; set; } 
+        public Role Role { get; set; }
     }
 }

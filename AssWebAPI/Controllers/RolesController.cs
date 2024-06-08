@@ -76,8 +76,14 @@ namespace AssWebAPI.Controllers
         // POST: api/Roles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Role>> PostRole(Role role)
+        public async Task<ActionResult<Role>> PostRole([FromBody] Role role)
         {
+            // Kiểm tra ModelState để đảm bảo dữ liệu hợp lệ
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Role.Add(role);
             await _context.SaveChangesAsync();
 
